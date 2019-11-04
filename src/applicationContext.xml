@@ -5,6 +5,9 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:sport.properties"/>
+    </bean>
     <!-- Define your beans here -->
     <bean id="myFortuneService"
           class="com.practice.springdemo.HappyFortuneService"/>
@@ -19,11 +22,14 @@
         <constructor-arg ref="myFortuneService"/>
     </bean>
 
+    <bean id="randomFortune"
+          class="com.practice.springdemo.RandomFortune"/>
+
     <bean id="myCricketCoach"
           class="com.practice.springdemo.CricketCoach">
-        <property name="fortuneService" ref="myFortuneService"/>
-        <property name="emailAddress" value="dummy_email_address@dummy.com"/>
-        <property name="team" value="Dummy Cricket Team"/>
+        <property name="fortuneService" ref="randomFortune"/>
+        <property name="emailAddress" value="${foo.email}"/>
+        <property name="team" value="${foo.team}"/>
     </bean>
 
 </beans>
